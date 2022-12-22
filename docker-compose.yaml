@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  project:
+    image: node:alpine
+    volumes:
+      - .:/project
+    working_dir: /project
+    command: sh -c "yarn && yarn test"
+  
+  scanner:
+    image: sonarsource/sonar-scanner-cli
+    volumes:
+      - .:/project
+    working_dir: /project
+    command: sonar-scanner -Dsonar.projectKey=FULL_CYCLE_CI -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_24e301f0969813bf78584b8d701fbf1724c138e4
+    network_mode: host
