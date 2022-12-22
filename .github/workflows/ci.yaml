@@ -7,14 +7,15 @@ on:
       - develop
 jobs:
   build:
-    runs-on: ubuntu:latest
+    runs-on: dependencies
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Use Node.js latest
         uses: actions/setup-node@v3
         with:
-          node-version: latest
+          node-version: 18
+          cache: yarn
       - name: Install dependencies
         run: yarn
       - name: Run tests
